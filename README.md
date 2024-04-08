@@ -25,7 +25,7 @@
 * Lot of debug codes/configuration Samsung added are removed.
 * Added [wireguard](https://www.wireguard.com/) driver, an open-source VPN driver in-kernel
 * Added [KernelSU](https://kernelsu.org/)
-* Docker config (most features except ``CONFIG_EXT3_FS_XATTR`` and ``CONFIG_SECURITY_APPARMOR``)
+* Docker config (all kernel features except ``CONFIG_EXT3_FS_XATTR`` and ``CONFIG_SECURITY_APPARMOR``)
 * KVM config
 
 ## How To Build
@@ -35,10 +35,10 @@
 $ sudo apt install -y bash git make libssl-dev curl bc pkg-config m4 libtool automake autoconf
 
 # Clone this repository
-$ git clone https://github.com/Gojikovi/kernel_samsung_universal9611
+$ git clone https://github.com/RealEthanPlayzDev/grass_universal9611.git
 
 # Go into the repository
-$ cd kernel_samsung_universal9611
+$ cd grass_universal9611
 
 # Install toolchain
 # This will use antman and patch glibc if needed
