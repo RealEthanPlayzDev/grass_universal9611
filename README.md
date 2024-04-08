@@ -12,7 +12,6 @@
 <p align="center">
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-build">How To Build</a> •
-  <a href="#how-to-flash">How To Flash</a> •
   <a href="#credits">Credits</a>
 </p>
 
@@ -26,10 +25,10 @@
 * Lot of debug codes/configuration Samsung added are removed.
 * Added [wireguard](https://www.wireguard.com/) driver, an open-source VPN driver in-kernel
 * Added [KernelSU](https://kernelsu.org/)
+* Docker config (most features except ``CONFIG_EXT3_FS_XATTR`` and ``CONFIG_SECURITY_APPARMOR``)
+* KVM config
 
 ## How To Build
-
-You will need ubuntu, git, around 8GB RAM and bla-bla-bla...
 
 ```bash
 # Install dependencies
@@ -42,27 +41,24 @@ $ git clone https://github.com/Gojikovi/kernel_samsung_universal9611
 $ cd kernel_samsung_universal9611
 
 # Install toolchain
-# You could try any clang/LLVM based toolchain, however I use neutron clang
-# If you are using Arch or distro with latest glibc, You may want to use antman instead.
+# This will use antman and patch glibc if needed
+# If you use a rolling-release distro with latest glibc, use antman directly instead
 $ bash <(curl https://gist.githubusercontent.com/roynatech2544/0feeeb35a6d1782b186990ff2a0b3657/raw/b170134a94dac3594df506716bc7b802add2724b/setup.sh)
 
-# If you want to compile the kernel not for A51 then export DEVICE variable to m21, m31, m31s, f41
 # Build the kernel
-$ ./build_kernel.sh aosp # (for AOSP)
-$ ./build_kernel.sh oneui # (for OneUI)
-$ DEVICE=m21 ./build_kernel.sh aosp # (for M21, AOSP)
+# DEVICE variable has to be explicitly set
+# DEVICE can be m21, m31, m31s, f41
+$ DEVICE=a51 ./build_kernel.sh oneui ksu no-permissive no-docker no-kvm # (for A51, OneUI, KernelSU)
+$ DEVICE=a51 ./build_kernel.sh aosp ksu no-permissive docker kvm        # (for A51, AOSP, KernelSU, Enforcing SELinux, Docker config, KVM config)
+$ DEVICE=a51 ./build_kernel.sh oneui ksu no-permissive docker kvm       # (for A51, OneUI, KernelSU, Enforcing SELinux, Docker config, KVM config)
 ```
 
-After build the image of the kernel will be in out/arch/arm64/boot/Image
-
-## How To Flash
-
-After a successful build, you can see the scripts/packaging/Grass*.zip archive.
-This is your kernel. Just flash it via TWRP or adb sideload
+After build the image of the kernel will be in out/arch/arm64/boot/Image. Flashable zip will be made at the root of the repo with the name Kernel.zip
 
 ## Credits
 
 - [roynatech2544](https://github.com/roynatech2544)
+- [Docker on Android gist](https://gist.github.com/FreddieOliveira/efe850df7ff3951cb62d74bd770dce27)
 - [Samsung Open Source](https://opensource.samsung.com/)
 - [Android Open Source Project](https://source.android.com/)
 - [The Linux Kernel](https://www.kernel.org/)
