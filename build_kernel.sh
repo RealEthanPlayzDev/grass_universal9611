@@ -52,6 +52,13 @@ else
 echo "KVM config: Disabled"
 fi
 
+if [ "$6" = "postgres" ]; then
+CONFIG_POSTGRES=vendor/postgres.config
+echo "PostgreSQL config: Enabled"
+else
+echo "PostgreSQL config: Disabled"
+fi
+
 rm -rf out
 
 COMMON_FLAGS='
@@ -73,7 +80,7 @@ LLVM_DIS='${LLVM_DIR}/llvm-dis'
 LLVM_NM='${LLVM_DIR}/llvm-nm'
 '
 
-make O=out $COMMON_FLAGS vendor/${DEVICE}_defconfig vendor/grass.config vendor/${DEVICE}.config $CONFIG_AOSP $CONFIG_DOCKER $CONFIG_KVM $CONFIG_KSU $CONFIG_SELINUX
+make O=out $COMMON_FLAGS vendor/${DEVICE}_defconfig vendor/grass.config vendor/${DEVICE}.config $CONFIG_AOSP $CONFIG_DOCKER $CONFIG_KVM $CONFIG_KSU $CONFIG_SELINUX $CONFIG_POSTGRES
 make O=out $COMMON_FLAGS ${FLAGS} -j$(nproc)
 
 if [ -f "$PWD/out/arch/arm64/boot/Image" ]; then

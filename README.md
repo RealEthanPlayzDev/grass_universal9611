@@ -27,6 +27,7 @@
 * Added [KernelSU](https://kernelsu.org/)
 * Docker config (all kernel features except ``CONFIG_EXT3_FS_XATTR`` and ``CONFIG_SECURITY_APPARMOR``)
 * KVM config
+* PostgreSQL config (shared memory, SYSV IPC)
 
 ## How To Build
 
